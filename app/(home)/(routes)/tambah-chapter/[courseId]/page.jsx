@@ -1,40 +1,18 @@
 "use client";
-import { generateUniqueFileName } from "@/app/_services";
-import { addChapter } from "@/app/_services";
-import { uploadFile } from "@/app/_services";
-import { addCourse } from "@/app/_services";
-import { useRouter } from "next/navigation";
+import { ChapterContext } from "@/app/_context/ChapterContext";
 import React from "react";
 const FormTambahChapter = ({ params }) => {
-  const router = useRouter();
+  const {
+    handleAddChapter,
+    chapterBaru,
+    handleChapterChange,
+    handleFile,
+    changeCourseId,
+  } = React.useContext(ChapterContext);
   const { courseId } = params;
-  const [file, setFile] = React.useState({ file: "", nameFile: "" });
-  const [chapterBaru, setChapterBaru] = React.useState({
-    course_id: parseInt(courseId),
-    name: "",
-    video: "",
-    youtube_url: "",
-  });
-  const handleChapterChange = (e) => {
-    const { name, value } = e.target;
-    setChapterBaru((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleAddChapter = async (e) => {
-    e.preventDefault();
-    const res = await addChapter(chapterBaru);
-    uploadFile(file);
-    res ? router.push("/chapter/" + courseId) : null;
-  };
-
-  const handleFile = (e) => {
-    const uniqueFileName = generateUniqueFileName(e.target.files?.[0]);
-    setFile({ file: e.target.files?.[0], nameFile: uniqueFileName });
-    setChapterBaru({ ...chapterBaru, video: uniqueFileName });
-  };
+  React.useEffect(() => {
+    changeCourseId(courseId);
+  }, [courseId]);
   return (
     <div className="container mx-auto">
       <h2 className="text-2xl font-bold text-center mb-8">

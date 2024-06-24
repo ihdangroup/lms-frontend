@@ -24,7 +24,11 @@ const ChapterPageAdmin = ({ params }) => {
       >
         Tambah Chapter
       </Link>
-      <TabelChapter chapters={chapters} loading={loading} />
+      <TabelChapter
+        chapters={chapters}
+        loading={loading}
+        refresh={getChapters}
+      />
     </div>
   );
 };

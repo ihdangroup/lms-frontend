@@ -13,16 +13,6 @@ const Header = ({ slide, setSlide }) => {
   return (
     <div className="p-5 border-b flex items-center justify-between bg-white shadow-md">
       <div className="flex items-center">
-        <div className="flex items-center bg-gray-100 p-2 rounded-lg">
-          <input
-            type="text"
-            placeholder="Search Course"
-            className="bg-gray-100 border-none outline-none w-full"
-          />
-          <Search className="text-gray-500 ml-2" />
-        </div>
-      </div>
-      <div className="flex items-center">
         {!user?.email ? (
           <button
             onClick={() => router.push("/login")}

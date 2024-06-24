@@ -12,8 +12,20 @@ export const addCourse = async (newCourse) => {
   const { data } = await axios.post(MASTER_URL + "api/kursus", newCourse);
   return data;
 };
+export const editKursus = async (value) => {
+  const courseId = parseInt(value?.id);
+  const { data } = await axios.put(
+    MASTER_URL + "api/kursus/" + courseId,
+    value
+  );
+  return data;
+};
 export const hapusCourse = async (id) => {
   const { data } = await axios.delete(MASTER_URL + "api/kursus/" + id);
+  return data;
+};
+export const getChapter = async (id) => {
+  const { data } = await axios.get(MASTER_URL + "api/chapter/" + id);
   return data;
 };
 export const addChapter = async (newCourse) => {
@@ -23,6 +35,14 @@ export const addChapter = async (newCourse) => {
 export const deleteChapter = async (id) => {
   const chapterId = parseInt(id);
   const { data } = await axios.delete(MASTER_URL + "api/chapter/" + chapterId);
+  return data;
+};
+export const editChapter = async (value) => {
+  //   const chapterId = parseInt(id);
+  const { data } = await axios.put(
+    MASTER_URL + "api/chapter/" + value.video_id,
+    value
+  );
   return data;
 };
 export const getCourseChapter = async (id) => {
@@ -37,8 +57,7 @@ export const studentsCourse = async (id) => {
 };
 
 export const getCoursePreview = async (id) => {
-  const response = await fetch(MASTER_URL + "api/kursus/" + id);
-  const data = await response.json();
+  const { data } = await axios.get(MASTER_URL + "api/kursus/" + id);
   return data;
 };
 export const getCourseUser = async (id) => {

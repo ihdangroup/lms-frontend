@@ -66,6 +66,7 @@ export const AuthContextProvider = ({ children }) => {
   const logoutUser = () => {
     setUser(null);
     localStorage.removeItem("user");
+    router.push("/login");
   };
 
   // Handler untuk submit register

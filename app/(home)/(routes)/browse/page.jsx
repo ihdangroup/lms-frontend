@@ -1,22 +1,21 @@
 "use client";
-import { AuthContext } from "@/app/_context/AuthContext";
+import { KursusContext } from "@/app/_context/KursusContext";
 import React from "react";
-import CourseMenuAdmin from "./_pages/CourseMenuAdmin";
-import CourseMenuUser from "./_pages/CourseMenuUser";
+import CategoryCourse from "./_components/CategoryCourse";
+import CourseList from "./_components/CourseList";
 
-const Dashboard = () => {
-  const { user } = React.useContext(AuthContext);
+const CourseMenuUser = () => {
+  const { courses, getCourses, loadingCourse, filterCourse } =
+    React.useContext(KursusContext);
   return (
     <div>
-      {!user ? (
-        <CourseMenuUser />
-      ) : user?.role == "user" ? (
-        <CourseMenuUser />
-      ) : (
-        <CourseMenuAdmin />
-      )}
+      <CategoryCourse selectedCategory={(category) => filterCourse(category)} />
+      <CourseList
+        courses={courses}
+        refresh={getCourses}
+        loadingCourse={loadingCourse}
+      />
     </div>
   );
 };
-
-export default Dashboard;
+export default CourseMenuUser;

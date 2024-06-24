@@ -49,7 +49,7 @@ const SidebarNav = ({ slide, setSlide }) => {
     },
     {
       id: 2,
-      name: "Users",
+      name: "Dashboard",
       icon: StudentsIcon,
       path: "/dashboard",
     },

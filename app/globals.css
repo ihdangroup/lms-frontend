@@ -5,4 +5,53 @@
 body {
   background-color: white;
   color: black;
+  font-family: Arial, Helvetica, sans-serif;
+}
+@layer utilities {
+  .stroke-20 {
+    stroke-width: 20px;
+  }
+
+  .stroke-round {
+    stroke-linecap: round;
+  }
+
+  @keyframes slide {
+    0% {
+      transform: translateY(-50px);
+    }
+    100% {
+      transform: translateY(50px);
+    }
+  }
+
+  .animate-slide {
+    animation: slide 2s linear infinite;
+  }
+
+  .animation-delay-500 {
+    animation-delay: 0.5s;
+  }
+
+  @keyframes escalade {
+    0% {
+      stroke-dasharray: 0 157px;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 157px 157px;
+      stroke-dashoffset: 0;
+    }
+    100% {
+      stroke-dasharray: 157px 157px;
+      stroke-dashoffset: -156px;
+    }
+  }
+
+  .animate-escalade {
+    stroke: url(#gradient);
+    stroke-dasharray: 0 157px;
+    stroke-dashoffset: 0;
+    animation: escalade 2s cubic-bezier(0.8, 0, 0.2, 1) infinite;
+  }
 }

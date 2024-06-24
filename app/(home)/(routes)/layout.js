@@ -1,5 +1,7 @@
 "use client";
 import { AuthContextProvider } from "@/app/_context/AuthContext";
+import { ChapterContextProvider } from "@/app/_context/ChapterContext";
+import { KursusContextProvider } from "@/app/_context/KursusContext";
 import React from "react";
 import Header from "../_components/Header";
 import SidebarNav from "../_components/SidebarNav";
@@ -18,7 +20,11 @@ const homeLayout = ({ children }) => {
       <div className="ml-0 md:ml-64">
         <Header slide={slide} setSlide={setSlide} />
         <AuthContextProvider>
-          <div className="p-4">{children}</div>
+          <KursusContextProvider>
+            <ChapterContextProvider>
+              <div className="p-4">{children}</div>
+            </ChapterContextProvider>
+          </KursusContextProvider>
         </AuthContextProvider>
       </div>
     </AuthContextProvider>

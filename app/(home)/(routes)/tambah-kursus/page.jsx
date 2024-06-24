@@ -1,55 +1,10 @@
 "use client";
-import { generateUniqueFileName } from "@/app/_services";
-import { uploadFile, addCourse } from "@/app/_services";
-import { useRouter } from "next/navigation";
+import { KursusContext } from "@/app/_context/KursusContext";
 import React from "react";
 
 const FormTambahKursus = () => {
-  const [file, setFile] = React.useState({ file: "", nameFile: "" });
-  const router = useRouter();
-  const [kursusBaru, setKursusBaru] = React.useState({
-    name: "",
-    description: "",
-    image: "",
-    total_chapter: "",
-    tag: "",
-  });
-
-  const handleCourseChange = (e) => {
-    const { name, value } = e.target;
-    setKursusBaru((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleAddCourse = async (e) => {
-    e.preventDefault();
-    const res = await addCourse(kursusBaru);
-    if (file.file) {
-      await uploadFile(file);
-    }
-    setKursusBaru({
-      name: "",
-      description: "",
-      image: "",
-      total_chapter: "",
-      tag: "",
-    });
-    if (res) {
-      router.push("/browse");
-    }
-  };
-
-  const handleImage = (e) => {
-    const uniqueFileName = generateUniqueFileName(e.target.files?.[0]);
-    setFile({ file: e.target.files?.[0], nameFile: uniqueFileName });
-    setKursusBaru((prevData) => ({
-      ...prevData,
-      image: uniqueFileName,
-    }));
-  };
-
+  const { kursusBaru, handleCourseChange, handleImage, handleAddCourse } =
+    React.useContext(KursusContext);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <h2 className="text-2xl font-bold mb-6">Form Tambah Kursus</h2>
