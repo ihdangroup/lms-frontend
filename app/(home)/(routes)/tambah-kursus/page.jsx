@@ -3,8 +3,13 @@ import { KursusContext } from "@/app/_context/KursusContext";
 import React from "react";
 
 const FormTambahKursus = () => {
-  const { kursusBaru, handleCourseChange, handleImage, handleAddCourse } =
-    React.useContext(KursusContext);
+  const {
+    kursusBaru,
+    handleCourseChange,
+    loadingAddCourse,
+    handleImage,
+    handleAddCourse,
+  } = React.useContext(KursusContext);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <h2 className="text-2xl font-bold mb-6">Form Tambah Kursus</h2>
@@ -99,12 +104,14 @@ const FormTambahKursus = () => {
           />
         </div>
         <div className="flex items-center justify-between">
-          <button
-            type="submit"
-            className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Tambah Kursus
-          </button>
+          {!loadingAddCourse ? (
+            <button
+              type="submit"
+              className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Tambah Kursus
+            </button>
+          ) : null}
         </div>
       </form>
     </div>

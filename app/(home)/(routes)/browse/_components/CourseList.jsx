@@ -16,7 +16,7 @@ const CourseList = ({ courses, loadingCourse, refresh }) => {
           <SkeletonCard />
           <SkeletonCard />
         </>
-      ) : user?.role == "user" ? (
+      ) : user?.role == "user" || !user?.role ? (
         courses.map((course) => (
           <Link
             href={`/course-preview/${course.id}`}
@@ -38,7 +38,7 @@ const CourseList = ({ courses, loadingCourse, refresh }) => {
           </div>
           {courses.map((course) => (
             <React.Fragment key={course.id}>
-              <div className="w-full lg:w-[24%]">
+              <div className="w-full lg:w-[25%]">
                 <CardItem refresh={refresh} course={course} />
               </div>
             </React.Fragment>

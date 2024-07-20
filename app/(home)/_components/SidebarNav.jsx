@@ -43,6 +43,12 @@ const SidebarNav = ({ slide, setSlide }) => {
   const menuListAdmin = [
     {
       id: 1,
+      name: "Statistic",
+      icon: StudentsIcon,
+      path: "/statistic",
+    },
+    {
+      id: 2,
       name: "Courses",
       icon: Search,
       path: "/browse",
@@ -104,6 +110,14 @@ const SidebarNav = ({ slide, setSlide }) => {
             </Link>
           );
         })}
+        {slide ? (
+          <button
+            onClick={() => setSlide(!slide)}
+            className="flex lg:hidden bg-purple-500 p-2 rounded text-white"
+          >
+            close menu
+          </button>
+        ) : null}
       </div>
     </>
   );

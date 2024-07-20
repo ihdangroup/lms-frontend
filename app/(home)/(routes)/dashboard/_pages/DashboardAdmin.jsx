@@ -1,47 +1,25 @@
 "use client";
 import React from "react";
-import Link from "next/link";
-import { AuthContext } from "@/app/_context/AuthContext";
-import { getUsers } from "@/app/_services";
-import { getStudents } from "@/app/_services";
-import { Verifikasi } from "@/app/_services/auth";
 import TableUser from "../_components/TableUser";
+import { UserContext } from "@/app/_context/UserContext";
+import { AuthContext } from "@/app/_context/AuthContext";
 
 const DashboardAdmin = () => {
+  const {
+    setUserAcount,
+    filterUsers,
+    handleSearch,
+    verifyEmail,
+    students,
+    loading,
+  } = React.useContext(UserContext);
   const { user } = React.useContext(AuthContext);
-  const [students, setStudents] = React.useState([]);
-  const [filterUsers, setFilterUsers] = React.useState([]);
-  const [verify, setVerify] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
-  const tampilSiswa = async () => {
-    if (user?.role == "s-admin") {
-      const data = await getUsers();
-      setStudents(data);
-    } else {
-      const data = await getStudents();
-      setStudents(data);
-    }
-    setLoading(false);
+  const usingUser = () => {
+    setUserAcount(user);
   };
-  const verifyEmail = async (id) => {
-    const resp = await Verifikasi(id);
-    await tampilSiswa();
-  };
-  const handleSearch = (value) => {
-    if (value) {
-      const filterUser = students?.filter((student) =>
-        student.name
-          .toLowerCase()
-          .replace(/\s+/g, "")
-          .includes(value.toLowerCase().replace(/\s+/g, ""))
-      );
-      if (filterUser) setFilterUsers(filterUser);
-    } else if (value == "") setFilterUsers(students);
-  };
-
   React.useEffect(() => {
-    tampilSiswa();
-  }, [students]);
+    usingUser(user);
+  }, [user]);
   return (
     <div className="container mx-auto">
       <h2 className="text-2xl font-bold mb-4">Daftar Mahasiswa</h2>

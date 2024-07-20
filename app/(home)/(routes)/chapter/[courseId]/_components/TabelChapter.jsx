@@ -1,9 +1,11 @@
 "use client";
+import { ChapterContext } from "@/app/_context/ChapterContext";
 import { deleteChapter } from "@/app/_services";
 import Link from "next/link";
 import React from "react";
 
-const TabelChapter = ({ chapters, loading, refresh }) => {
+const TabelChapter = ({ courseId }) => {
+  const { chapters, loading, getChapters } = React.useContext(ChapterContext);
   const handleDelete = async (e, id) => {
     console.log(id);
     e.preventDefault();
@@ -11,7 +13,7 @@ const TabelChapter = ({ chapters, loading, refresh }) => {
       const res = await deleteChapter(id);
       if (res) {
         alert("berhasil terhapus");
-        refresh();
+        getChapters(courseId);
       } else {
         alert("batal dihapus");
       }

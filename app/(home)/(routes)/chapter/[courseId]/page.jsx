@@ -1,21 +1,15 @@
 "use client";
-import { getCourseChapter } from "@/app/_services";
+import { ChapterContext } from "@/app/_context/ChapterContext";
 import Link from "next/link";
 import React from "react";
 import TabelChapter from "./_components/TabelChapter";
 
 const ChapterPageAdmin = ({ params }) => {
   const { courseId } = params;
-  const [chapters, setChapters] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
-  const getChapters = async () => {
-    const res = await getCourseChapter(courseId);
-    setLoading(false);
-    setChapters(res);
-  };
+  const { getChapters } = React.useContext(ChapterContext);
   React.useEffect(() => {
-    getChapters();
-  }, []);
+    getChapters(courseId);
+  }, [courseId]);
   return (
     <div>
       <Link
@@ -24,11 +18,7 @@ const ChapterPageAdmin = ({ params }) => {
       >
         Tambah Chapter
       </Link>
-      <TabelChapter
-        chapters={chapters}
-        loading={loading}
-        refresh={getChapters}
-      />
+      <TabelChapter courseId={courseId} />
     </div>
   );
 };

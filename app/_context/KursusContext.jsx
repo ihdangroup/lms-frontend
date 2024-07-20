@@ -1,7 +1,9 @@
 "use client";
+
 import { useRouter } from "next/navigation";
 import React from "react";
 import { getCourseList } from "../_services";
+import { memberCourse } from "../_services";
 import { editKursus } from "../_services";
 import { addCourse } from "../_services";
 import { uploadFile } from "../_services";
@@ -10,15 +12,22 @@ export const KursusContext = React.createContext({});
 export const KursusContextProvider = ({ children }) => {
   const [courses, setCourses] = React.useState([]);
   const [coursesOrg, setCoursesOrg] = React.useState([]);
+  const [listStudents, setlistStudents] = React.useState([]);
   const [loadingCourse, setLoadingCourse] = React.useState(true);
+  const [loadingAddCourse, setLoadingAddCourse] = React.useState(false);
   const getCourses = async () => {
     const res = await getCourseList();
     setLoadingCourse(false);
     setCourses(res);
     setCoursesOrg(res);
   };
+  const getstudents = async () => {
+    const res = await memberCourse();
+    setlistStudents(res);
+  };
   React.useEffect(() => {
     getCourses();
+    getstudents();
   }, []);
   const filterCourse = (category) => {
     if (category == 0) {
@@ -48,6 +57,7 @@ export const KursusContextProvider = ({ children }) => {
 
   const handleAddCourse = async (e) => {
     e.preventDefault();
+    setLoadingAddCourse(true);
     const res = await addCourse(kursusBaru);
     if (file.file) {
       await uploadFile(file);
@@ -59,6 +69,8 @@ export const KursusContextProvider = ({ children }) => {
       total_chapter: "",
       tag: "",
     });
+    setLoadingAddCourse(false);
+    await getCourses();
     if (res) {
       router.push("/browse");
     }
@@ -89,7 +101,9 @@ export const KursusContextProvider = ({ children }) => {
   return (
     <KursusContext.Provider
       value={{
+        loadingAddCourse,
         kursusBaru,
+        listStudents,
         handleAddCourse,
         handleCourseChange,
         editCourse,

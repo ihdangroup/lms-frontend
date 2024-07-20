@@ -24,6 +24,10 @@ export const hapusCourse = async (id) => {
   const { data } = await axios.delete(MASTER_URL + "api/kursus/" + id);
   return data;
 };
+export const getAllChapter = async () => {
+  const { data } = await axios.get(MASTER_URL + "api/chapter");
+  return data;
+};
 export const getChapter = async (id) => {
   const { data } = await axios.get(MASTER_URL + "api/chapter/" + id);
   return data;
@@ -51,8 +55,11 @@ export const getCourseChapter = async (id) => {
 };
 
 export const studentsCourse = async (id) => {
-  const res = await fetch(MASTER_URL + "api/detil-kursus/" + id);
-  const data = await res.json();
+  const { data } = await axios.get(MASTER_URL + "api/detil-kursus/" + id);
+  return data;
+};
+export const memberCourse = async (id) => {
+  const { data } = await axios.get(MASTER_URL + "api/student-course");
   return data;
 };
 

@@ -6,10 +6,14 @@ import { uploadFile } from "@/app/_services";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { editChapter } from "../_services";
+import { getAllChapter } from "../_services";
 
 export const ChapterContext = createContext({});
 export const ChapterContextProvider = ({ children }) => {
   const [file, setFile] = React.useState({ file: "", nameFile: "" });
+  const [allChapter, setAllChapter] = React.useState([]);
+  const [chapters, setChapters] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
   const [courseIdContext, setCourseIdContext] = React.useState(0);
   const router = useRouter();
   const [chapterBaru, setChapterBaru] = React.useState({
@@ -58,9 +62,26 @@ export const ChapterContextProvider = ({ children }) => {
     setFile({ file: e.target.files?.[0], nameFile: uniqueFileName });
     setChapterBaru({ ...chapterBaru, video: uniqueFileName });
   };
+
+  const getChapters = async (courseId) => {
+    const res = await getCourseChapter(courseId);
+    setLoading(false);
+    setChapters(res);
+  };
+  const showAllChapter = async () => {
+    const { data } = await getAllChapter();
+    setAllChapter(data);
+  };
+  React.useEffect(() => {
+    showAllChapter();
+  }, []);
   return (
     <ChapterContext.Provider
       value={{
+        allChapter,
+        getChapters,
+        chapters,
+        loading,
         file,
         chapterBaru,
         handleChapterChange,

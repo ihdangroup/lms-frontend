@@ -1,5 +1,6 @@
 "use client";
 import { AuthContext } from "@/app/_context/AuthContext";
+import { ChapterContext } from "@/app/_context/ChapterContext";
 import { getCourseList } from "@/app/_services";
 import { hapusCourse } from "@/app/_services";
 import Image from "next/image";
@@ -8,7 +9,10 @@ import React from "react";
 
 const CardItem = ({ course, progress, refresh, isAdmin }) => {
   const { user } = React.useContext(AuthContext);
-
+  const { allChapter } = React.useContext(ChapterContext);
+  const chapterLength = allChapter?.filter(
+    (chapter) => chapter.course_id == course?.id
+  );
   const handleDelete = async (e) => {
     e.preventDefault();
     if (confirm("Anda yakin ingin menghapusnya")) {
@@ -21,7 +25,7 @@ const CardItem = ({ course, progress, refresh, isAdmin }) => {
   };
 
   return (
-    <div className="rounded-lg shadow-xl mb-6 p-4 bg-white">
+    <div className="rounded-lg shadow-xl mx-2 mb-6 p-4 bg-white">
       <Image
         src={`/images/${course?.image}`}
         alt="file image is wrong"
@@ -30,13 +34,14 @@ const CardItem = ({ course, progress, refresh, isAdmin }) => {
         className="rounded-t-md"
       />
       <div className="p-4">
-        <h1 className="text-xl font-semibold">{course?.name}</h1>
+        <h1 className="text-xl font-semibold truncate">{course?.name}</h1>
         <p className="text-sm my-2 text-purple-600">
-          {course?.total_chapter} Chapter
+          {chapterLength.length}
+          Chapter
         </p>
         {progress ? (
           <div className="flex items-center mb-4">
-            {progress === course.total_chapter ? (
+            {progress === chapterLength.length ? (
               <p className="p-1 bg-green-500 rounded text-white text-xs">
                 Course Completed
               </p>
@@ -47,13 +52,9 @@ const CardItem = ({ course, progress, refresh, isAdmin }) => {
                   <div
                     className="bg-purple-600 mb-2 h-2.5 rounded-full"
                     style={{
-                      width: `${(progress / course.total_chapter) * 100}%`,
+                      width: `${(progress / chapterLength.length) * 100}%`,
                     }}
                   ></div>
-                  <p>{(progress / course.total_chapter) * 100} %</p>
-                  {/* <p className="text-sm bg-blue-600 text-white mt-2 p-1 rounded">
-                    {progress} dari {course.total_chapter} video telah selesai
-                  </p> */}
                 </div>
               </>
             )}
