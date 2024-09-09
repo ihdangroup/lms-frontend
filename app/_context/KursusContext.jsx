@@ -34,6 +34,8 @@ export const KursusContextProvider = ({ children }) => {
       setCourses(coursesOrg);
       return;
     }
+    console.log(coursesOrg);
+    console.log(category);
     const filteredList = coursesOrg.filter((course) => course.tag == category);
     setCourses(filteredList);
   };

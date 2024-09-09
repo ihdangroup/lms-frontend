@@ -54,14 +54,6 @@ const LandingPage = () => {
             </p>
             <div className="space-x-0 lg:space-x-4 flex text-center flex-wrap w-full text-white">
               <Link
-                href="/register"
-                className="w-full bg-[#02a0d7] px-0 rounded  py-3 lg:px-6 lg:w-auto"
-              >
-                <span className="rounded-md text-lg font-semibold hover:bg-purple-700 transition-colors">
-                  Daftar Sekarang
-                </span>
-              </Link>
-              <Link
                 href="/browse"
                 className="w-full mt-4 lg:mt-0 bg-transparent px-0 border rounded py-3 lg:px-6 lg:w-auto"
               >

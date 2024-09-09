@@ -7,6 +7,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { editChapter } from "../_services";
 import { getAllChapter } from "../_services";
+import { getCourseChapter } from "../_services";
 
 export const ChapterContext = createContext({});
 export const ChapterContextProvider = ({ children }) => {
