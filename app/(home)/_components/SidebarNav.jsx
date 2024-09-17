@@ -5,12 +5,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import StudentsIcon from "../icons/StudentsIcon";
-import LetterIcon from "../icons/LetterIcon";
 import Search from "../icons/Search";
-import UpgradeIcon from "../icons/UpgradeIcon";
 
 const SidebarNav = ({ slide, setSlide }) => {
-  const { user } = React.useContext(AuthContext);
+  const { user , logoutUser} = React.useContext(AuthContext);
   let pathname = usePathname();
   const [menu, setMenu] = React.useState([
     {
@@ -29,7 +27,7 @@ const SidebarNav = ({ slide, setSlide }) => {
     },
     {
       id: 2,
-      name: "Dashboard",
+      name: "Progres Kursus",
       icon: StudentsIcon,
       path: "/dashboard",
     },
@@ -43,7 +41,7 @@ const SidebarNav = ({ slide, setSlide }) => {
   const menuListAdmin = [
     {
       id: 1,
-      name: "Statistic",
+      name: "Dashboard",
       icon: StudentsIcon,
       path: "/statistic",
     },
@@ -55,7 +53,7 @@ const SidebarNav = ({ slide, setSlide }) => {
     },
     {
       id: 2,
-      name: "Dashboard",
+      name: "Data User",
       icon: StudentsIcon,
       path: "/dashboard",
     },
@@ -110,6 +108,14 @@ const SidebarNav = ({ slide, setSlide }) => {
             </Link>
           );
         })}
+         {user ? (
+            <button
+            onClick={logoutUser}
+              className="flex border border-2 border-red-500 w-full shadow-xl justify-center p-2 hover:bg-red-500 hover:text-white my-8 rounded-lg text-red-500 font-bold"
+            >
+              Logout
+            </button>
+          ) : null}
         {slide ? (
           <button
             onClick={() => setSlide(!slide)}
@@ -118,6 +124,9 @@ const SidebarNav = ({ slide, setSlide }) => {
             close menu
           </button>
         ) : null}
+      </div>
+      <div className="w-full p-[15px]">
+       
       </div>
     </>
   );

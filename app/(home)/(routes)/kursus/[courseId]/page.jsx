@@ -4,19 +4,8 @@ import { getCoursePreview } from "@/app/_services";
 import React from "react";
 const FormEditKursus = ({ params }) => {
   const { courseId } = params;
-  const [thisCourse, setthisCourse] = React.useState([]);
-  const { handleImage, editCourse } = React.useContext(KursusContext);
-  const getDetailCourse = async () => {
-    const res = await getCoursePreview(courseId);
-    setthisCourse(res[0]);
-  };
-  const ubahKolomKursus = (e) => {
-    const { name, value } = e.target;
-    setthisCourse((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  const { ubahKolomKursus, getDetailCourse, thisCourse, handleImageedit, editCourse } = React.useContext(KursusContext);
+  
   React.useEffect(() => {
     getDetailCourse(courseId);
   }, [courseId]);
@@ -64,23 +53,6 @@ const FormEditKursus = ({ params }) => {
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="total_chapter"
-          >
-            Total Chapter
-          </label>
-          <input
-            type="number"
-            name="total_chapter"
-            placeholder="Total Chapter"
-            value={thisCourse.total_chapter}
-            onChange={ubahKolomKursus}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="tag"
           >
             Category
@@ -108,7 +80,7 @@ const FormEditKursus = ({ params }) => {
           <input
             type="file"
             name="file"
-            onChange={handleImage}
+            onChange={handleImageedit}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>

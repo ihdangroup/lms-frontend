@@ -14,7 +14,7 @@ const Register = () => {
     }
   };
   React.useEffect(() => {
-    user ? redirectPage() : null;
+    user && user?.role !=="s-admin" ? redirectPage() : null;
   }, [user]);
   return (
     <div className="flex flex-col min-h-screen items-center justify-center">

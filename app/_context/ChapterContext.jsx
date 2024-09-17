@@ -1,12 +1,13 @@
 "use client";
 import { createContext } from "react";
-import { generateUniqueFileName } from "@/app/_services";
+import { generateUniqueFileName, getCourseChapter } from "@/app/_services";
 import { addChapter } from "@/app/_services";
 import { uploadFile } from "@/app/_services";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { editChapter } from "../_services";
 import { getAllChapter } from "../_services";
+import { getCourseChapter } from "../_services";
 
 export const ChapterContext = createContext({});
 export const ChapterContextProvider = ({ children }) => {

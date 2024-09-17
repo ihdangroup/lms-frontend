@@ -22,6 +22,12 @@ export const AuthContextProvider = ({ children }) => {
     password: "",
     role: "",
   });
+  const [registerDataUser, setRegisterDataUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "user",
+  });
 
   // Handler untuk perubahan data login
   const handleLoginChange = (e) => {
@@ -36,6 +42,13 @@ export const AuthContextProvider = ({ children }) => {
   const handleRegisterChange = (e) => {
     const { name, value } = e.target;
     setRegisterData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  const handleRegisterUserChange = (e) => {
+    const { name, value } = e.target;
+    setRegisterDataUser((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -66,7 +79,7 @@ export const AuthContextProvider = ({ children }) => {
   const logoutUser = () => {
     setUser(null);
     localStorage.removeItem("user");
-    router.push("/login");
+    router.push("/");
   };
 
   // Handler untuk submit register
@@ -79,10 +92,31 @@ export const AuthContextProvider = ({ children }) => {
     ) {
       await RegisterUser(registerData);
       router.push("/login");
+      console.log(registerData);
     } else {
       console.log("mohon isi email & password dahulu");
     }
     setRegisterData({
+      name: "",
+      email: "",
+      password: "",
+      role: "",
+    });
+  };
+  const handleRegisterUserSubmit = async (e) => {
+    e.preventDefault();
+    if (
+      registerDataUser.email !== "" ||
+      registerDataUser.password !== "" ||
+      registerDataUser.name !== ""
+    ) {
+      await RegisterUser(registerDataUser);
+      router.push("/login");
+      console.log(registerDataUser);
+    } else {
+      console.log("mohon isi email & password dahulu");
+    }
+    setRegisterDataUser({
       name: "",
       email: "",
       password: "",
@@ -110,6 +144,9 @@ export const AuthContextProvider = ({ children }) => {
         handleRegisterChange,
         handleLoginSubmit,
         handleRegisterSubmit,
+        handleRegisterUserSubmit,
+        handleRegisterUserChange,
+        registerDataUser
       }}
     >
       {children}

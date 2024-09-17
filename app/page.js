@@ -36,12 +36,18 @@ const LandingPage = () => {
 
   return (
     <div>
-      <header>
+      <header className="flex items-center justify-around">
         <div>
           <p className="text-center py-8">
             Kembangkan skill tanpa mengeluarkan biaya sepeserpun
           </p>
         </div>
+        <Link href="/login">
+          Login Siswa
+        </Link>
+        <Link href="/login-admin">
+          Login Admin
+        </Link>
       </header>
       <main>
         <section className="flex flex-wrap text-white px-10  lg:px-20 bg-[#0e1339] pb-20">
@@ -81,7 +87,7 @@ const LandingPage = () => {
           </div>
         </section>
 
-        <section className="bg-[#192474]  px-10 text-center  text-white py-20">
+        <section id="kursus" className="bg-[#192474]  px-10 text-center  text-white py-20">
           <div className="mx-auto">
             <h2 className="text-2xl lg:text-3xl  font-bold  mb-12">
               Pelatihan yang kami tawarkan

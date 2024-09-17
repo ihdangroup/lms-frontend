@@ -1,13 +1,14 @@
 "use client";
 import Link from "next/link";
 
-const TableUser = ({ loading, filterUsers, verifyEmail }) => {
+const TableUser = ({ loading, filterUsers, verifyEmail, hapusSiswa }) => {
   return (
     <table className="table-auto w-full">
       <thead>
         <tr className="bg-gray-800 text-white">
           <th className="px-4 py-2">Nama User</th>
           <th className="px-4 py-2">Role</th>
+          <th className="px-4 py-2">Email</th>
           <th className="px-4 py-2">Detail</th>
         </tr>
       </thead>
@@ -29,7 +30,8 @@ const TableUser = ({ loading, filterUsers, verifyEmail }) => {
             >
               <td className="border px-4 py-2">{student.name}</td>
               <td className="border px-4 py-2">{student.role}</td>
-              <td className="border px-4 py-2 flex gap-2">
+              <td className="border px-4 py-2">{student.email}</td>
+              <td className="border px-4 py-2 justify-center flex gap-2">
                 {student.role == "user" ? (
                   <Link href={`/detil-siswa/${student.id}`}>
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
@@ -47,7 +49,7 @@ const TableUser = ({ loading, filterUsers, verifyEmail }) => {
                     </button>
                   </Link>
                 ) : null}
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold p-2 rounded focus:outline-none focus:shadow-outline">
+                <button onClick={(e) => hapusSiswa(e,student?.id)} className="bg-red-500 hover:bg-red-700 text-white font-bold p-2 rounded focus:outline-none focus:shadow-outline">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"

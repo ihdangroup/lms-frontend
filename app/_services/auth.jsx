@@ -7,7 +7,7 @@ export const LoginUser = async (dataUser) => {
 };
 export const RegisterUser = async (dataUser) => {
   const { data } = await axios.post(MASTER_URL + "api/register", dataUser);
-  console.log(data);
+  console.log(dataUser);
   return data;
 };
 export const Verifikasi = async (id) => {

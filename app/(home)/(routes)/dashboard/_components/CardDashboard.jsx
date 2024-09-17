@@ -26,7 +26,7 @@ const CardDashboard = ({ id, isAdmin }) => {
   return (
     <div>
       <span className=" py-2 text-purple-600 font-semibold border border-0 border-b-2 border-purple-600">
-        Dashboard User
+        Progres Kursus
       </span>
       <div className="w-full mt-7 flex flex-wrap">
         {!loading ? (

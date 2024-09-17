@@ -26,12 +26,10 @@ const CardItem = ({ course, progress, refresh, isAdmin }) => {
 
   return (
     <div className="rounded-lg shadow-xl mx-2 mb-6 p-4 bg-white">
-      <Image
+      <img
         src={`/images/${course?.image}`}
         alt="file image is wrong"
-        width={1000}
-        height={500}
-        className="rounded-t-md"
+        className="h-[200px] w-[400px] rounded-t-md"
       />
       <div className="p-4">
         <h1 className="text-xl font-semibold truncate">{course?.name}</h1>

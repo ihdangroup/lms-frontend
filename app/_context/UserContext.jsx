@@ -1,7 +1,7 @@
 import React from "react";
-import { getStudents } from "../_services";
+import { deleteUser, getStudents } from "../_services";
 import { getUsers } from "../_services";
-import { AuthContext } from "./AuthContext";
+import { Verifikasi } from "../_services/auth";
 export const UserContext = React.createContext({});
 export const UserContextProvider = ({ children }) => {
   const [students, setStudents] = React.useState([]);
@@ -34,6 +34,16 @@ export const UserContextProvider = ({ children }) => {
       if (filterUser) setFilterUsers(filterUser);
     } else if (value == "") setFilterUsers(students);
   };
+  const hapusUser = async (e, user_id) => {
+    e.preventDefault();
+    if (confirm("Anda yakin ingin menghapusnya")) {
+      await deleteUser(user_id);
+      alert("User berhasil dihapus");
+      await tampilSiswa();
+    } else {
+      alert("User batal dihapus");
+    }
+  };
 
   React.useEffect(() => {
     tampilSiswa();
@@ -47,6 +57,7 @@ export const UserContextProvider = ({ children }) => {
         verifyEmail,
         students,
         loading,
+        hapusUser
       }}
     >
       {children}

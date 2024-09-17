@@ -1,19 +1,32 @@
 "use client";
 import React from "react";
-import { KursusContext } from "@/app/_context/KursusContext";
-import { ChapterContext } from "@/app/_context/ChapterContext";
-import BarChart from "./components/BarChart";
-import { UserContext } from "@/app/_context/UserContext";
+
+import { fetchAllData } from "@/app/_services";
 const Statistic = () => {
-  const { courses, listStudents } = React.useContext(KursusContext);
-  const { allChapter } = React.useContext(ChapterContext);
-  const { students } = React.useContext(UserContext);
-  const members = students?.filter((student) => student.role == "user");
+  const [semuaData, setSemuaData ] = React.useState(null);
+
+  const members = semuaData?.students?.filter((student) => student.role == "user");
+  console.log(semuaData)
+
+  const fetchData = async () => {
+    try {
+      const responses = await fetchAllData();
+      // Set data ke context masing-masing
+      console.log(responses)
+      setSemuaData(responses)
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+React.useEffect(() => {
+  fetchData();
+}, []);
+
   return (
-    <div>
-      <h1>Statistic Page</h1>
-      <div className="flex flex-wrap mt-6">
-        <div className="p-4 w-[400px] flex items-center ml-2 rounded bg-white">
+    <div className="bg-[#f7f7fa] h-screen">
+      <h1 className="text-2xl text-center">Statistic Page</h1>
+      <div className="flex flex-wrap justify-center mt-6">
+        <div className="p-4 w-[400px] shadow-xl flex items-center ml-2 rounded bg-white">
           <div className="rounded p-2 bg-[#838a96]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -29,10 +42,10 @@ const Statistic = () => {
           </div>
           <div className="ml-3">
             <h3 className="text-xl">Kursus</h3>
-            <h4 className="text-xl">{courses.length}</h4>
+            <h4 className="text-xl">{semuaData ? semuaData?.courses.length : null}</h4>
           </div>
         </div>
-        <div className="p-4 w-[400px] flex items-center ml-2 rounded bg-white">
+        <div className="p-4 w-[400px] shadow-xl flex items-center ml-2 rounded bg-white">
           <div className="rounded p-2 bg-[#edf4ff]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -48,16 +61,16 @@ const Statistic = () => {
           </div>
           <div className="ml-3">
             <h3 className="text-xl">Chapter</h3>
-            <h4 className="text-xl">{allChapter.length}</h4>
+             <h4 className="text-xl">{semuaData ?semuaData?.allChapter.length : null}</h4>
           </div>
         </div>
-        <div className="p-4 w-[400px] flex ml-2 rounded items-center bg-white">
+        <div className="p-4 w-[400px] shadow-xl flex ml-2 rounded items-center bg-white">
           <div className="rounded p-2 bg-[#edf4ff]">
             <img src="/icons/dash-students.svg" width="77" height="77" alt="" />
           </div>
           <div className="ml-3">
             <h3 className="text-xl">Students</h3>
-            <h4 className="text-xl">{members.length}</h4>
+            <h4 className="text-xl">{semuaData ? members.length : "loading"}</h4>
           </div>
         </div>
       </div>

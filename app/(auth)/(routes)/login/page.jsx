@@ -78,7 +78,7 @@ const Login = () => {
         </form>
         <div className="flex">
           <p>Register</p>
-          <Link className="ml-2 text-blue-600" href="/register">
+          <Link className="ml-2 text-blue-600" href="/register-siswa">
             disini
           </Link>
         </div>

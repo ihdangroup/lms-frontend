@@ -14,6 +14,7 @@ export const addCourse = async (newCourse) => {
 };
 export const editKursus = async (value) => {
   const courseId = parseInt(value?.id);
+  console.log(value)
   const { data } = await axios.put(
     MASTER_URL + "api/kursus/" + courseId,
     value
@@ -41,6 +42,22 @@ export const deleteChapter = async (id) => {
   const { data } = await axios.delete(MASTER_URL + "api/chapter/" + chapterId);
   return data;
 };
+export const deleteUser = async (id) => {
+  const userId = parseInt(id);
+  const { data } = await axios.delete(MASTER_URL + "api/user/" + userId);
+  return data;
+};
+// Contoh gabungan response API
+export const fetchAllData = async () => {
+  const { data } = await axios.get('http://127.0.0.1:8000/api/statistic');
+  console.log(data)
+  return {
+    courses: data.kursus,
+    allChapter: data.chapters,
+    students: data.users,
+  };
+};
+
 export const editChapter = async (value) => {
   //   const chapterId = parseInt(id);
   const { data } = await axios.put(
