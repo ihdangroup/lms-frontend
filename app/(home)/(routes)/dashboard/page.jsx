@@ -10,7 +10,13 @@ const page = () => {
     <div>
       {user ? (
         user?.role == "user" ? (
-          <DashboardUser />
+          <>
+            <div className="h-[300px] flex flex-col text-center items-center justify-center p-6 rounded-lg my-4 text-white bg-[#065371]">
+              <h2 className="text-3xl">Selamat Datang {user?.name}!</h2>
+              <p>Semoga aktivitas belajarmu menyenangkan.</p>
+            </div>
+            <DashboardUser />
+          </>
         ) : (
           <DashboardAdmin />
         )

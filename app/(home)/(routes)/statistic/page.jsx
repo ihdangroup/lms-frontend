@@ -2,28 +2,35 @@
 import React from "react";
 
 import { fetchAllData } from "@/app/_services";
+import { AuthContext } from "@/app/_context/AuthContext";
 const Statistic = () => {
-  const [semuaData, setSemuaData ] = React.useState(null);
-
-  const members = semuaData?.students?.filter((student) => student.role == "user");
-  console.log(semuaData)
+  const [semuaData, setSemuaData] = React.useState(null);
+  const { user } = React.useContext(AuthContext);
+  const members = semuaData?.students?.filter(
+    (student) => student.role == "user"
+  );
+  console.log(semuaData);
 
   const fetchData = async () => {
     try {
       const responses = await fetchAllData();
       // Set data ke context masing-masing
-      console.log(responses)
-      setSemuaData(responses)
+      console.log(responses);
+      setSemuaData(responses);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
-React.useEffect(() => {
-  fetchData();
-}, []);
+  React.useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className="bg-[#f7f7fa] h-screen">
+      <div className="h-[300px] flex flex-col text-center items-center justify-center p-6 rounded-lg my-4 text-white bg-[#065371]">
+        <h2 className="text-3xl">Selamat Datang {user?.name}!</h2>
+        <p>Semoga aktivitasmu hari ini menyenangkan.</p>
+      </div>
       <h1 className="text-2xl text-center">Statistic Page</h1>
       <div className="flex flex-wrap justify-center mt-6">
         <div className="p-4 w-[400px] shadow-xl flex items-center ml-2 rounded bg-white">
@@ -42,7 +49,9 @@ React.useEffect(() => {
           </div>
           <div className="ml-3">
             <h3 className="text-xl">Kursus</h3>
-            <h4 className="text-xl">{semuaData ? semuaData?.courses.length : null}</h4>
+            <h4 className="text-xl">
+              {semuaData ? semuaData?.courses.length : null}
+            </h4>
           </div>
         </div>
         <div className="p-4 w-[400px] shadow-xl flex items-center ml-2 rounded bg-white">
@@ -61,7 +70,9 @@ React.useEffect(() => {
           </div>
           <div className="ml-3">
             <h3 className="text-xl">Chapter</h3>
-             <h4 className="text-xl">{semuaData ?semuaData?.allChapter.length : null}</h4>
+            <h4 className="text-xl">
+              {semuaData ? semuaData?.allChapter.length : null}
+            </h4>
           </div>
         </div>
         <div className="p-4 w-[400px] shadow-xl flex ml-2 rounded items-center bg-white">
@@ -70,7 +81,9 @@ React.useEffect(() => {
           </div>
           <div className="ml-3">
             <h3 className="text-xl">Students</h3>
-            <h4 className="text-xl">{semuaData ? members.length : "loading"}</h4>
+            <h4 className="text-xl">
+              {semuaData ? members.length : "loading"}
+            </h4>
           </div>
         </div>
       </div>

@@ -1,8 +1,10 @@
 "use client";
 import { CompletedChapterContext } from "@/app/_context/CompletedChapterContext";
+import Link from "next/link";
 import React from "react";
 
-const ChapterNav = ({ course, setChapter, userCourse }) => {
+const ChapterNav = ({ course, setChapter
+ }) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const { completedChapter, setCompletedChapter } = React.useContext(
     CompletedChapterContext
@@ -13,7 +15,9 @@ const ChapterNav = ({ course, setChapter, userCourse }) => {
   return (
     <div className="m-4">
       <div className="p-4 bg-purple-600 mb-2 shadow-xl rounded-lg">
-        <h2 className="font-bold py-2 text-white">{course.name}</h2>
+        <Link href="/browse" className="font-bold py-2 text-white">
+          Kembali ke home
+        </Link>
       </div>
       <div>
         {course?.map((chapter, index) => (

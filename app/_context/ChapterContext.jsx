@@ -5,9 +5,8 @@ import { addChapter } from "@/app/_services";
 import { uploadFile } from "@/app/_services";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { editChapter } from "../_services";
+import { editChapter, getChapter } from "../_services";
 import { getAllChapter } from "../_services";
-import { getCourseChapter } from "../_services";
 
 export const ChapterContext = createContext({});
 export const ChapterContextProvider = ({ children }) => {
@@ -20,7 +19,17 @@ export const ChapterContextProvider = ({ children }) => {
   const [chapterBaru, setChapterBaru] = React.useState({
     course_id: 0,
     name: "",
-    video: "",
+    video: null,
+    image: null,
+    text: null,
+    youtube_url: "",
+  });
+  const [thisChapter, setThisChapter] = React.useState({
+    course_id: 0,
+    name: "",
+    video: null,
+    image: null,
+    text: null,
     youtube_url: "",
   });
   const changeCourseId = (value) => {
@@ -36,32 +45,62 @@ export const ChapterContextProvider = ({ children }) => {
 
   const handleAddChapter = async (e) => {
     e.preventDefault();
+    console.log(chapterBaru);
     const res = await addChapter(chapterBaru);
     uploadFile(file);
     res ? router.push("/chapter/" + chapterBaru.course_id) : null;
     setChapterBaru({
       course_id: 0,
       name: "",
-      video: "",
-      youtube_url: "",
-    });
-  };
-  const editChapterCourse = async (e, value) => {
-    e.preventDefault();
-    const res = await editChapter(value);
-    res ? router.push("/chapter/" + value.course_id) : null;
-    setChapterBaru({
-      course_id: 0,
-      name: "",
-      video: "",
+      video: null,
+      image: null,
+      text: null,
       youtube_url: "",
     });
   };
 
-  const handleFile = (e) => {
+  const getDetailChapter = async (chapterId) => {
+    const res = await getChapter(chapterId);
+    setThisChapter(res?.chapter[0]);
+  };
+  const editChapterChange = (e) => {
+    const { name, value } = e.target;
+    setThisChapter((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const editChapterCourse = async (e, value) => {
+    e.preventDefault();
+    console.log(value);
+    const res = await editChapter(value);
+    uploadFile(file);
+    res ? router.push("/chapter/" + value.course_id) : null;
+    setChapterBaru({
+      course_id: 0,
+      name: "",
+      video: null,
+      image: null,
+      text: null,
+      youtube_url: "",
+    });
+  };
+
+  const handleFile = (e, id, option) => {
     const uniqueFileName = generateUniqueFileName(e.target.files?.[0]);
     setFile({ file: e.target.files?.[0], nameFile: uniqueFileName });
-    setChapterBaru({ ...chapterBaru, video: uniqueFileName });
+    console.log(id);
+    id
+      ? option == "video"
+        ? setThisChapter({ ...thisChapter, video: uniqueFileName })
+        : setThisChapter({ ...thisChapter, image: uniqueFileName })
+      : setChapterBaru({ ...chapterBaru, video: uniqueFileName });
+  };
+  const handleImage = (e) => {
+    const uniqueFileName = generateUniqueFileName(e.target.files?.[0]);
+    setFile({ file: e.target.files?.[0], nameFile: uniqueFileName });
+    setChapterBaru({ ...chapterBaru, image: uniqueFileName });
   };
 
   const getChapters = async (courseId) => {
@@ -80,6 +119,9 @@ export const ChapterContextProvider = ({ children }) => {
     <ChapterContext.Provider
       value={{
         allChapter,
+        thisChapter,
+        getDetailChapter,
+        editChapterChange,
         getChapters,
         chapters,
         loading,
@@ -88,6 +130,7 @@ export const ChapterContextProvider = ({ children }) => {
         handleChapterChange,
         handleAddChapter,
         handleFile,
+        handleImage,
         setCourseIdContext,
         courseIdContext,
         changeCourseId,

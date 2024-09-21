@@ -1,7 +1,6 @@
 import { AuthContext } from "@/app/_context/AuthContext";
-import { PublishCourse } from "@/app/_services";
 import { EnrollCourse } from "@/app/_services";
-import { useUser } from "@clerk/nextjs";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import React, { useContext } from "react";
@@ -43,6 +42,14 @@ const EnrollmentSection = ({ courseDetil, userCourse, loading }) => {
               Mulai Course
             </button>
           )}
+        </div>
+        <div className="mt-6">
+          <Link
+            href="/browse"
+            className="font-bold bg-blue-600 mt-6 w-full rounded-lg  p-2 text-white"
+          >
+            Kembali ke home
+          </Link>
         </div>
       </div>
     </>

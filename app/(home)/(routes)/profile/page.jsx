@@ -11,7 +11,7 @@ const Profile = () => {
         <h2 className="text-2xl font-bold text-purple-400 mb-4">
           Profil Pengguna
         </h2>
-        <div className="mt-7 shadow-lg p-8 border-l-4 border-purple-400">
+        <div className="mt-7 shadow-lg bg-white p-8 border-l-4 border-purple-400">
           <div className="flex items-center mb-4">
             <p className="mr-4 font-semibold">Nama :</p>
             <h2 className="font-medium">{user?.name}</h2>

@@ -146,7 +146,7 @@ export const AuthContextProvider = ({ children }) => {
         handleRegisterSubmit,
         handleRegisterUserSubmit,
         handleRegisterUserChange,
-        registerDataUser
+        registerDataUser,
       }}
     >
       {children}

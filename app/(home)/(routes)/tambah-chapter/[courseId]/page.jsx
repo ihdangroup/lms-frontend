@@ -7,6 +7,7 @@ const FormTambahChapter = ({ params }) => {
     chapterBaru,
     handleChapterChange,
     handleFile,
+    handleImage,
     changeCourseId,
   } = React.useContext(ChapterContext);
   const { courseId } = params;
@@ -37,6 +38,20 @@ const FormTambahChapter = ({ params }) => {
           />
         </div>
         <div className="mb-4">
+          <label htmlFor="text" className="block text-gray-700 font-bold mb-2">
+            Isi Materi
+          </label>
+          <textarea
+            type="text"
+            name="text"
+            id="text"
+            placeholder="Masukkan Nama Chapter"
+            value={chapterBaru.text}
+            onChange={handleChapterChange}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          ></textarea>
+        </div>
+        <div className="mb-4">
           <label
             htmlFor="youtube_url"
             className="block text-gray-700 font-bold mb-2"
@@ -54,6 +69,20 @@ const FormTambahChapter = ({ params }) => {
           />
         </div>
         <div className="mb-4">
+          <label htmlFor="image" className="block text-gray-700 font-bold mb-2">
+            Gambar Chapter
+          </label>
+          <input
+            type="file"
+            name="image"
+            id="image"
+            accept="image/*"
+            required
+            onChange={handleImage}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div className="mb-4">
           <label
             htmlFor="video_file"
             className="block text-gray-700 font-bold mb-2"
@@ -65,7 +94,6 @@ const FormTambahChapter = ({ params }) => {
             name="video_file"
             id="video_file"
             accept="video/*"
-            required
             onChange={handleFile}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />

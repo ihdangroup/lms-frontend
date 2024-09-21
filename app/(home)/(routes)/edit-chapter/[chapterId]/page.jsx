@@ -1,22 +1,15 @@
 "use client";
 import { ChapterContext } from "@/app/_context/ChapterContext";
-import { getChapter } from "@/app/_services";
 import React from "react";
 const FormEditChapter = ({ params }) => {
-  const { editChapterCourse, handleFile } = React.useContext(ChapterContext);
-  const [thisChapter, setThisChapter] = React.useState([]);
+  const {
+    editChapterCourse,
+    editChapterChange,
+    thisChapter,
+    getDetailChapter,
+    handleFile,
+  } = React.useContext(ChapterContext);
   const { chapterId } = params;
-  const getDetailChapter = async () => {
-    const res = await getChapter(chapterId);
-    setThisChapter(res?.chapter[0]);
-  };
-  const editChapterChange = (e) => {
-    const { name, value } = e.target;
-    setThisChapter((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
   React.useEffect(() => {
     getDetailChapter(chapterId);
   }, [chapterId]);
@@ -43,6 +36,20 @@ const FormEditChapter = ({ params }) => {
           />
         </div>
         <div className="mb-4">
+          <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
+            Isi Chapter
+          </label>
+          <textarea
+            type="text"
+            name="text"
+            id="text"
+            placeholder="Masukkan Konten Chapter"
+            value={thisChapter?.text}
+            onChange={editChapterChange}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          ></textarea>
+        </div>
+        <div className="mb-4">
           <label
             htmlFor="youtube_url"
             className="block text-gray-700 font-bold mb-2"
@@ -60,6 +67,20 @@ const FormEditChapter = ({ params }) => {
           />
         </div>
         <div className="mb-4">
+          <label htmlFor="image" className="block text-gray-700 font-bold mb-2">
+            Gambar Chapter
+          </label>
+          <input
+            type="file"
+            name="image"
+            id="image"
+            accept="image/*"
+            onChange={(e) => handleFile(e, chapterId, "image")}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+          {/* <p>{thisChapter?.video}</p> */}
+        </div>
+        <div className="mb-4">
           <label
             htmlFor="video_file"
             className="block text-gray-700 font-bold mb-2"
@@ -71,10 +92,10 @@ const FormEditChapter = ({ params }) => {
             name="video_file"
             id="video_file"
             accept="video/*"
-            onChange={handleFile}
+            onChange={(e) => handleFile(e, chapterId, "video")}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
-          <p>{thisChapter?.video}</p>
+          {/* <p>{thisChapter?.video}</p> */}
         </div>
         <div className="flex items-center justify-between">
           <button

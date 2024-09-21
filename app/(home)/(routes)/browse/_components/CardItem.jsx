@@ -29,10 +29,10 @@ const CardItem = ({ course, progress, refresh, isAdmin }) => {
       <img
         src={`/images/${course?.image}`}
         alt="file image is wrong"
-        className="h-[200px] w-[400px] rounded-t-md"
+        className="h-[150px] w-[400px] rounded-t-md"
       />
       <div className="p-4">
-        <h1 className="text-xl font-semibold truncate">{course?.name}</h1>
+        <h1 className="text-xl font-semibold line-clamp-2">{course?.name}</h1>
         <p className="text-sm my-2 text-purple-600">
           {chapterLength.length}
           Chapter

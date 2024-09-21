@@ -2,7 +2,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
-import CardItem from "./(home)/(routes)/browse/_components/CardItem";
+
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 // Assuming CardItem component for courses is already defined
 
 const LandingPage = () => {
@@ -36,21 +38,18 @@ const LandingPage = () => {
 
   return (
     <div>
-      <header className="flex items-center justify-around">
+      <header className="flex items-center bg-[#f4f4f4] justify-around">
         <div>
-          <p className="text-center py-8">
+          <p className="text-center py-4">
             Kembangkan skill tanpa mengeluarkan biaya sepeserpun
           </p>
         </div>
-        <Link href="/login">
-          Login Siswa
-        </Link>
-        <Link href="/login-admin">
-          Login Admin
-        </Link>
       </header>
-      <main>
-        <section className="flex flex-wrap text-white px-10  lg:px-20 bg-[#0e1339] pb-20">
+      <main className="px-10 lg:px-24">
+        <section id="navbar">
+          <Navbar />
+        </section>
+        <section className="flex flex-wrap text-slate-800 pb-20">
           <div className="w-full lg:w-1/2 order-2 lg:order-1 pt-0 lg:pt-24">
             <h1 className="text-2xl lg:text-4xl font-bold mb-4">
               Selamat Datang di Situs Pembelajaran Saung IT Bumiayu
@@ -58,28 +57,31 @@ const LandingPage = () => {
             <p className="text-lg lg:text-xl mb-8">
               Tingkatkan Skill Digital Anda dengan Pelatihan Berkualitas
             </p>
-            <div className="space-x-0 lg:space-x-4 flex text-center flex-wrap w-full text-white">
-              <Link
-                href="/browse"
-                className="w-full mt-4 lg:mt-0 bg-transparent px-0 border rounded py-3 lg:px-6 lg:w-auto"
+            <div className="space-x-0 lg:space-x-4 flex text-center flex-wrap w-full">
+              <a
+                href="#kursus"
+                className="w-full mt-4 lg:mt-0 px-0 border rounded bg-slate-800 text-white py-3 lg:px-6 lg:w-auto"
               >
-                <span className=" rounded-md text-lg font-semibold hover:bg-purple-700 transition-colors">
-                  Lihat Kursus
+                <span className=" rounded-md text-lg font-semibold   transition-colors">
+                  Belajar Sekarang
                 </span>
-              </Link>
+              </a>
             </div>
           </div>
           <div className="lg:w-1/2 order-1 lg:order-2">
             <Image
-              src="/images/banner.jpg"
-              width="400"
-              height="400"
+              src="/images/homepage-hero.png"
+              width="600"
+              height="600"
               alt="banner"
             />
           </div>
         </section>
 
-        <section id="kursus" className="bg-[#192474]  px-10 text-center  text-white py-20">
+        <section
+          id="kursus"
+          className="bg-[#192474] rounded-lg text-center text-white py-20"
+        >
           <div className="mx-auto">
             <h2 className="text-2xl lg:text-3xl  font-bold  mb-12">
               Pelatihan yang kami tawarkan
@@ -126,7 +128,7 @@ const LandingPage = () => {
           </div>
         </section>
 
-        <section className="flex flex-wrap text-white px-10  lg:px-20 bg-[#0e1339] pb-20">
+        <section className="flex flex-wrap py-20" id="tentang">
           <div className="lg:w-1/2 text-right ">
             <Image
               src="/images/banner2.png"
@@ -135,11 +137,11 @@ const LandingPage = () => {
               alt="banner"
             />
           </div>
-          <div className="w-full text-center lg:w-1/2 pt-0 lg:pt-24">
+          <div className="w-full  lg:w-1/2 pt-0 lg:pt-24">
             <h1 className="text-2xl lg:text-4xl font-bold mb-4">
               Mengapa Saung IT Bumiayu?
             </h1>
-            <p className="text-lg  lg:text-xl mb-8">
+            <p className=" lg:text-lg mb-8">
               Saung IT Bumiayu adalah CV yang berfokus pada pelatihan skill
               digital. Kami menyediakan berbagai pelatihan mulai dari Mikrotik,
               Cisco Packet Tracer, Web Development, Application Development,
@@ -155,23 +157,7 @@ const LandingPage = () => {
           </div>
         </section>
       </main>
-
-      <footer className="bg-purple-600 text-white py-8">
-        <div className="container mx-auto text-center">
-          <p>&copy; 2024 Saung IT. All rights reserved.</p>
-          <div className="flex justify-center space-x-4 mt-4">
-            <Link href="/about" className="hover:text-gray-300">
-              About
-            </Link>
-            <Link href="/contact" className="hover:text-gray-300">
-              Contact
-            </Link>
-            <Link href="/privacy" className="hover:text-gray-300">
-              Privacy Policy
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

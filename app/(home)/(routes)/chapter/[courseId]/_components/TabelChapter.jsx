@@ -29,6 +29,8 @@ const TabelChapter = ({ courseId }) => {
             <tr className="bg-gray-200">
               <th className="px-4 py-2">#</th>
               <th className="px-4 py-2">Name</th>
+              <th className="px-4 py-2">Image</th>
+              <th className="px-4 py-2">Text</th>
               <th className="px-4 py-2">Video</th>
               <th className="px-4 py-2">Video ID</th>
               <th className="px-4 py-2">YouTube URL</th>
@@ -47,7 +49,13 @@ const TabelChapter = ({ courseId }) => {
                   className={index % 2 === 0 ? "bg-gray-100" : ""}
                 >
                   <td className="border px-4 py-2">{index + 1}</td>
-                  <td className="border px-4 py-2">{chapter.name}</td>
+                  <td className="border px-4 py-2 line-clamp-3">
+                    {chapter.name}
+                  </td>
+                  <td className="border px-4 py-2">{chapter?.image}</td>
+                  <td className="border px-4 py-2 line-clamp-3">
+                    {chapter?.text}
+                  </td>
                   <td className="border px-4 py-2">{chapter.video}</td>
                   <td className="border px-4 py-2">{chapter.video_id}</td>
                   <td className="border px-4 py-2">

@@ -20,7 +20,7 @@ const Login = () => {
   };
   const redirectPage = () => {
     if (user) {
-      router.push("/browse");
+      router.push("/dashboard");
     }
   };
   React.useEffect(() => {
@@ -32,8 +32,11 @@ const Login = () => {
         <h1 className="text-3xl font-bold mb-4">Login</h1>
         <form
           onSubmit={handleLoginSubmit}
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-64"
+          className="bg-white w-[30%] border-2 border-gray-300 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-64"
         >
+          <div className="flex justify-center">
+            <img src="/logo.png" width={120} height={120} alt="" />
+          </div>
           {messageError ? (
             <div className="shadow appearance-none border rounded w-full py-2 px-3 text-red-700 leading-tight">
               {messageError}
@@ -70,7 +73,7 @@ const Login = () => {
           <div className="flex items-center justify-between">
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-slate-600 w-full hover:bg-slate-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Login
             </button>
@@ -80,6 +83,12 @@ const Login = () => {
           <p>Register</p>
           <Link className="ml-2 text-blue-600" href="/register-siswa">
             disini
+          </Link>
+        </div>
+        <div className="flex">
+          <p>Login Sebagai</p>
+          <Link className="ml-2 text-blue-600" href="/login-admin">
+            Admin
           </Link>
         </div>
       </div>
